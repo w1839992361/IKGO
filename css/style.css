@@ -1,0 +1,163 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    font-family: "Century Gothic", sans-serif;
+    background-image: url("../img/bg_1.png");
+    overflow-x: hidden;
+    height: 100%;
+}
+
+#app {
+    height: 100%;
+}
+
+.frame {
+    display: none;
+}
+
+.pa {
+    position: absolute;
+}
+
+.pr {
+    position: relative;
+}
+
+.center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.col {
+    flex-direction: column;
+}
+
+.trans {
+    transition: all .3s;
+}
+
+.mask {
+    background-color: rgba(0, 0, 0, .3);
+}
+
+
+button {
+    width: 350px;
+    height: 70px;
+    border-radius: 25px;
+    border: 5px solid #FFF;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 20px;
+    font-weight: bold;
+    cursor: pointer;
+    color: #FFF;
+    margin: 15px;
+}
+
+button:active {
+    transform: scale(.95);
+}
+
+button.primary {
+    background: linear-gradient(dodgerblue, rgb(62, 53, 225));
+}
+
+button.orange {
+    background: linear-gradient(orange,#e3974b);
+}
+
+.full_page {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+}
+
+
+/*
+Main
+*/
+.start_btns {
+    width: 350px;
+    position: absolute;
+    top: 50%;
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+
+.logo {
+    position: absolute;
+    width: 500px;
+    left: 50%;
+    top: 20%;
+    transform: translateX(-50%);
+}
+
+input {
+    width: 360px;
+    height: 60px;
+    border-radius: 60px;
+    border: none;
+    font-size: 20px;
+    outline: none;
+    padding: 10px;
+    margin: 30px 0 30px 0;
+}
+
+
+/*
+Model
+*/
+
+.model {
+    align-items: flex-start;
+    padding-top: 8rem;
+    z-index: 999;
+    opacity: 0;
+    pointer-events: none;
+    backdrop-filter: blur(10px);
+    user-select: none;
+
+}
+
+.model.active {
+    opacity: 1;
+    pointer-events: unset;
+}
+
+.title {
+    font-size: 28px;
+    margin-bottom: 10px;
+    font-weight: bold;
+    user-select: none;
+}
+
+.model_dialog {
+    border: 5px solid orange;
+    background-color: #ffefe0;
+    padding: 15px;
+    border-radius: 20px;
+    width: 600px;
+}
+
+.btn_close {
+    width: 55px;
+    height: 55px;
+    padding: 5px;
+    top: -15px;
+    right: -15px;
+    margin: 0;
+    /*right: -15px;*/
+}
