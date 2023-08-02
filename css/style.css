@@ -65,12 +65,20 @@ button:active {
     transform: scale(.95);
 }
 
+button:hover {
+    opacity: .9;
+}
+
 button.primary {
     background: linear-gradient(dodgerblue, rgb(62, 53, 225));
 }
 
 button.orange {
-    background: linear-gradient(orange,#e3974b);
+    background: linear-gradient(orange, #e3974b);
+}
+
+button.level {
+    border: none;
 }
 
 .full_page {
@@ -160,4 +168,101 @@ Model
     right: -15px;
     margin: 0;
     /*right: -15px;*/
+}
+
+/*
+select page
+*/
+
+.select_frame .box {
+    width: 60%;
+    height: 650px;
+    background-color: #ffefe0;
+    border: 5px solid orange;
+    border-radius: 20px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    user-select: none;
+}
+
+.select_frame .back {
+    width: 200px;
+}
+
+.select_frame .header {
+    width: 100%;
+    height: 100px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-right: 50px;
+}
+
+.nickName {
+    font-size: 30px;
+    position: relative;
+}
+
+.nickName:hover::after {
+    opacity: 1;
+}
+
+.nickName::after {
+    position: absolute;
+    content: attr(aria-label);
+    font-size: 16px;
+    bottom: calc(-100% - 5px);
+    left: 0;
+    opacity: 0;
+    background-color: #333;
+    padding: 10px;
+    color: #FFF;
+    border-radius: 10px;
+    text-transform: capitalize;
+}
+
+.select_frame .body {
+    width: 95%;
+    height: 460px;
+    margin: 15px 2%;
+    display: flex;
+    justify-content: space-around;
+}
+
+.level {
+    width: 20%;
+    height: 80%;
+}
+
+.level:nth-child(1) {
+    background: linear-gradient(#23f127, #198609);
+}
+
+.level:nth-child(2) {
+    background: linear-gradient(#ef5d02, #e5800b);
+}
+
+.level:nth-child(3) {
+    background: linear-gradient(#e83819, #cc5842);
+}
+
+/*
+game
+*/
+
+#canvas{
+    display: block;
+    cursor: cell;
+}
+.game_frame .top {
+    width: 100%;
+    height: 60px;
+    background-color: #ffefe0;
+}
+
+.game_frame .bottom {
+    width: 100%;
+    height: 120px;
+    background-color: #ffefe0;
 }

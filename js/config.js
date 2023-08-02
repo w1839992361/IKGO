@@ -59,13 +59,9 @@ function loadImage(key, src) {
     })
 }
 
-imageReady().then(res=>{
-    pageChange('.frame','.start_frame')
-})
 
 function imageReady() {
     return new Promise(resolve => {
         Promise.all(res).then(res => resolve(images));
     })
 }
-

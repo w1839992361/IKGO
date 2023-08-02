@@ -10,6 +10,7 @@
     <script src="./js/jquery.js"></script>
     <script src="./js/utils.js"></script>
     <script src="./js/config.js"></script>
+    <script src="./js/global.js"></script>
     <script src="./js/listen.js"></script>
 
 </head>
@@ -21,8 +22,8 @@
             <div class="model_dialog center col pr">
                 <div class="title">Please Input Your Name</div>
                 <button class="btn orange btn_close model_close pa">&times;</button>
-                <form class="center col">
-                    <input type="text" required pattern=".*\S.*"  class="nameIpt">
+                <form class="center col nameForm">
+                    <input type="text" required pattern=".*\S.*" class="nameIpt">
                     <button type="submit" class="orange name_btn">Submit</button>
                 </form>
             </div>
@@ -35,15 +36,31 @@
         </div>
     </div>
     <div class="select_frame frame">
-
+        <div class="box pa">
+            <div class="header">
+                <button class="orange back">Main Page</button>
+                <p class="nickName" aria-label="NickName"></p>
+            </div>
+            <div class="body">
+                <button class="level trans" data-level="1">Easy</button>
+                <button class="level trans" data-level="2">Normal</button>
+                <button class="level trans" data-level="3">Hard</button>
+            </div>
+        </div>
     </div>
     <div class="game_frame frame">
+        <div class="top pr">
 
+        </div>
+        <canvas id="canvas"></canvas>
+        <div class="bottom pr">
+
+        </div>
     </div>
     <div class="rank_frame frame">
 
     </div>
 </div>
-<script src="./js/main.js"></script>
+<script src="./js/main.js" type="module"></script>
 </body>
 </html>
