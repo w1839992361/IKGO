@@ -69,7 +69,7 @@ $(() => {
         let {x, y} = getPosition(e);
         mouseMove.x = x;
         mouseMove.y = y;
-        if (mouseDown.x !== null && mouseDown.y !== null) {
+        if (game.mode === 'Build' && game.tool === 'road' && mouseDown.x !== null && mouseDown.y !== null) {
             if (axis === null) {
                 if (Math.abs(mouseDown.y - mouseMove.y) === 0 && Math.abs(mouseDown.x - mouseMove.x) > 1) {
                     axis = 'x';
@@ -95,29 +95,55 @@ $(() => {
 
     $('#canvas').mouseup((e) => {
         let {x, y} = mouseDown;
-        if (game.mode === 'build' && x !== null && y !== null) {
+        if (game.mode === 'Build' && x !== null && y !== null) {
             if (game.tool === 'road') {
-                if ((game.road.findIndex(i => i.x === x && i.y === y) === -1) && Math.abs(mouseDown.x - mouseMove.x) === 0 && Math.abs(mouseDown.y - mouseMove.y) === 0) {
-                    if (moneyIsEnough(-50)) {
-                        moneyReduce(-50);
-                        game.road.push({x, y});
-                    } else {
-                        tips('金币不足')
+                if (game.builds.find(i => i.x === mouseDown.x && i.y === mouseDown.y) || game.vr_road.find(i =>
+                    game.builds.findIndex(b => b.x === i.x && b.y === i.y) !== -1
+                )) {
+                    tips('禁止铺路到建筑上');
+                } else {
+                    if ((game.road.findIndex(i => i.x === x && i.y === y) === -1) && Math.abs(mouseDown.x - mouseMove.x) === 0 && Math.abs(mouseDown.y - mouseMove.y) === 0) {
+                        if (moneyIsEnough(-50)) {
+                            moneyReduce(-50);
+                            game.road.push({x, y});
+                        } else {
+                            tips('金币不足')
+                        }
+                    }
+                    let money = game.vr_road.reduce((carry, v_r) => {
+                        if (game.road.findIndex(r => r.x === v_r.x && r.y === v_r.y) === -1) {
+                            return carry += 50;
+                        }
+                        return carry;
+                    }, 0);
+                    if (game.vr_road.length > 0) {
+                        if (moneyIsEnough(-money)) {
+                            game.road = game.road.concat(game.vr_road);
+                            moneyReduce(-money);
+                        } else {
+                            tips('金币不足')
+                        }
                     }
                 }
-                let money = game.vr_road.reduce((carry, v_r) => {
-                    if (game.road.findIndex(r => r.x === v_r.x && r.y === v_r.y) === -1) {
-                        return carry += 50;
-                    }
-                    return carry;
-                }, 0);
-                if (game.vr_road.length > 0) {
-                    if (moneyIsEnough(-money)) {
-                        game.road = game.road.concat(game.vr_road);
-                        moneyReduce(-money);
+
+            }
+
+            if (game.tool === 'navigator') {
+                let item = game.grid.find(r => r.x === mouseDown.x && r.y === mouseDown.y);
+                if (item && item?.road_title?.length >= 3) {
+                    console.log(item)
+                    if (!item.is_navigator) {
+                        if (moneyIsEnough(-500)) {
+                            game.grid[game.grid.findIndex(r => r.x === mouseDown.x && r.y === mouseDown.y)].is_navigator = true;
+                            moneyReduce(-500);
+                        } else {
+                            tips('金币不足')
+                        }
                     } else {
-                        tips('金币不足')
+                        tips('不可以重复放置')
                     }
+                } else {
+                    tips('请将导航放在岔路口')
                 }
             }
         }
@@ -129,6 +155,27 @@ $(() => {
     $('#canvas').mouseout((e) => {
         Object.assign(mouseDown, {x: null, y: null})
         Object.assign(mouseMove, {x: null, y: null})
+    });
+    $('.game_toggle').click(() => {
+        let mode = $('.game_toggle').html();
+        game.mode = mode;
+        if (mode === 'Build') {
+            game.reset();
+        }
+        $('.game_toggle').html(mode === 'Launch' ? 'Build' : 'Launch');
+    })
+
+    $('.log').click(() => {
+        console.log(game)
+    })
+
+    $('.tools>.tool').mousemove(function () {
+        $(this).css('margin', '0px 15px 15px 15px')
+    }).mouseleave(function () {
+        $(this).css('margin', '15px');
+    }).click(function () {
+        game.tool = $(this)[0].getAttribute('data-brush');
+        $(this).addClass('active').siblings().removeClass('active')
     })
 
     function clearVrRoad() {

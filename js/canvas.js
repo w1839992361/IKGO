@@ -51,7 +51,7 @@ export default class Canvas {
 
     render() {
         this.ctx.clearRect(0, 0, game.width, game.height);
-        if (game.mode === 'build') {
+        if (game.mode === 'Build') {
             this.drawLine();
         }
     }

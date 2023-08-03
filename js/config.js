@@ -2,17 +2,17 @@ const levels = [
     {
         money: 3000,
         start: 1,
-        end: ['star', 'end', 'moon']
+        end: ['star', 'sun', 'moon']
     },
     {
         money: 5000,
         start: 2,
-        end: ['star', 'end', 'moon']
+        end: ['star', 'sun', 'moon']
     },
     {
         money: 8000,
         start: 3,
-        end: ['star', 'end', 'moon', 'star', 'end', 'moon']
+        end: ['star', 'sun', 'moon', 'star', 'sun', 'moon']
     },
 ];
 

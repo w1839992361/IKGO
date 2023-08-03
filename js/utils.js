@@ -36,3 +36,16 @@ function getDirs(x, y) {
     ]
 }
 
+function randomHandle(max, min) {
+    return Math.floor(Math.random() * (max - min + 1) + min);
+}
+
+function eq(p1, p2) {
+    return p1.x === p2.x && p1.y === p2.y;
+}
+
+function bfs(start, end) {
+    let q = [start];
+    let visited = [start];
+}
+
