@@ -43,13 +43,14 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/img" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/audio" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\30695\Desktop\728 IKGO\IKGO\audio" />
       <recent name="C:\Users\30695\Desktop\728 IKGO\IKGO\img" />
       <recent name="C:\Users\30695\Desktop\728 IKGO\IKGO\js" />
     </key>
@@ -66,7 +67,7 @@
       <option name="presentableId" value="Default" />
       <updated>1690879518265</updated>
       <workItem from="1690879519533" duration="53599000" />
-      <workItem from="1691113749243" duration="30675000" />
+      <workItem from="1691113749243" duration="33241000" />
     </task>
     <servers />
   </component>

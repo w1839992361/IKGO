@@ -89,6 +89,10 @@ export default class Game {
     secondLoop() {
         if (this.info.time > 0 && this.mode === 'Launch' && !this.is_over) {
             this.info.time--;
+            if (audios.length){
+                audios[Math.floor(Math.random()*audios.length)].play();
+                moneyReduce(1000);
+            }
         }
     }
 

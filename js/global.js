@@ -1,1 +1,1 @@
-let game, view, mouseDown = {}, mouseMove = {},ctx;
+let game, view, mouseDown = {}, mouseMove = {},ctx,audios = [];

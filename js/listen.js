@@ -58,7 +58,7 @@ $(() => {
                 game.start = data.start;
                 game.road = data.road;
                 game.level = data.level;
-                game.level_info = levels[data.level-1];
+                game.level_info = levels[data.level - 1];
                 closeModel();
                 pageChange('.frame', '.game_frame');
 
@@ -261,6 +261,7 @@ $(() => {
         let level = game.level_info.start + 1;
         let now_money = game.info.money;
         let now_score = game.info.score;
+        let name = game.info.nickName;
         Object.assign(game.info, {
             nickName: "",
             money: 0,
@@ -279,6 +280,8 @@ $(() => {
             time: 100,
         });
         game.init(level);
+        game.info.nickName = name;
+        game.start_info.nickName = name;
         game.info.money += now_money;
         game.info.score += now_score;
         game.start_info.money = game.info.money;
@@ -355,4 +358,18 @@ $(() => {
         pageChange(e.target.dataset.page, '.rank_frame');
     })
 
+    for (let i = 0; i < 2; i++) {
+        let audio = new Audio();
+        audio.src = `./audio/${i + 1}.mp3`;
+        audio.addEventListener('loadeddata', () => {
+            audios.push(audio);
+        })
+    }
+
+    document.addEventListener('keyup', (e) => {
+        let key = e.code.toLowerCase();
+        if (key === 'enter') {
+            audios.splice(0, audios.length);
+        }
+    })
 })
