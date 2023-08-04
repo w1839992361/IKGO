@@ -1,3 +1,7 @@
+import Game from './game.js';
+import Canvas from './canvas.js';
+import Human from "./human.js";
+
 $(() => {
     let axis = null;
     $(".model_close").click(function (e) {
@@ -37,7 +41,16 @@ $(() => {
                 data = null;
             }
             if (data) {
-                console.log(data);
+                console.log(data)
+                game = new Game();
+                game.builds = data.builds;
+                game.grid = data.grid;
+                game.info = data.info;
+                game.start = data.start;
+                game.road = data.road;
+                closeModel();
+                pageChange('.frame', '.game_frame');
+
             }
             $('.file_input').val("");
         }
@@ -131,7 +144,6 @@ $(() => {
             if (game.tool === 'navigator') {
                 let item = game.grid.find(r => r.x === mouseDown.x && r.y === mouseDown.y);
                 if (item && item?.road_title?.length >= 3) {
-                    console.log(item)
                     if (!item.is_navigator) {
                         if (moneyIsEnough(-500)) {
                             game.grid[game.grid.findIndex(r => r.x === mouseDown.x && r.y === mouseDown.y)].is_navigator = true;
@@ -144,6 +156,40 @@ $(() => {
                     }
                 } else {
                     tips('请将导航放在岔路口')
+                }
+            }
+
+            if (game.tool === 'remove') {
+                let index = game.grid.findIndex(r => r.x === mouseDown.x && r.y === mouseDown.y);
+                let item = game.grid[index];
+                if (item.is_navigator) {
+                    item.is_navigator = false;
+                    moneyReduce(500 * 0.8);
+                } else if (item.is_rebirth) {
+                    item.is_rebirth = false;
+                    moneyReduce(1000 * 0.8);
+                } else if (item.title === 'road') {
+                    game.road.splice(game.road.findIndex(r => r.x === mouseDown.x && r.y === mouseDown.y), 1);
+                    item.title = null;
+                    moneyReduce(50 * 0.8);
+                }
+            }
+
+            if (game.tool === 'rebirth') {
+                let item = game.grid.find(r => r.x === mouseDown.x && r.y === mouseDown.y);
+                let titleMap = ['u', 'r', 'd', 'l'];
+                if (game.grid.find(r => r.is_rebirth)) return tips('已存在一个重生之门');
+                if (titleMap.includes(item.road_title)) {
+                    if (moneyIsEnough(-1000)) {
+                        let grid = game.grid[game.grid.findIndex(r => r.x === mouseDown.x && r.y === mouseDown.y)];
+                        grid.is_rebirth = true;
+                        grid.first_connect = item.road_title;
+                        moneyReduce(-1000);
+                    } else {
+                        tips('金币不足');
+                    }
+                } else {
+                    tips('请将重生之门放在道路末端');
                 }
             }
         }
@@ -169,6 +215,10 @@ $(() => {
         console.log(game)
     })
 
+    $('.setting').click(() => {
+        $('.setting_model').addClass('active');
+    })
+
     $('.tools>.tool').mousemove(function () {
         $(this).css('margin', '0px 15px 15px 15px')
     }).mouseleave(function () {
@@ -184,4 +234,76 @@ $(() => {
         });
         game.vr_road.splice(0, game.vr_road.length);
     }
+
+    $('.back_home').click(function () {
+        game = new Game();
+        view = new Canvas('#canvas', game.width, game.height);
+        pageChange('.game_frame', '.start_frame');
+    })
+
+    $('.play_again').click(function () {
+        closeModel();
+        game.reset(true);
+    })
+
+    $('.next_level').click(function () {
+        let level = game.level + 1;
+        let now_money = game.info.money;
+        let now_score = game.info.score;
+        Object.assign(game.info, {
+            nickName: "",
+            money: 0,
+            score: 0,
+            time: 100,
+            road: [],
+            builds: [],
+            saveMoney: 0,
+            saveScore: 0,
+        });
+
+        Object.assign(game.start_info, {
+            nickName: "",
+            money: 0,
+            score: 0,
+            time: 100,
+        });
+        game.init(level);
+        game.info.money += now_money;
+        game.info.score += now_score;
+        game.start_info.money = game.info.money;
+        game.start_info.score = game.info.score;
+        game.road = [];
+        view.drawCell();
+        closeModel();
+    })
+
+    $('.saveGame').click(function () {
+        let info = JSON.parse(JSON.stringify(game.info));
+        let builds = JSON.parse(JSON.stringify(game.builds));
+        (Math.sign(info.saveScore) === -1) ? info.score += Math.abs(info.saveScore) : info.score -= Math.abs(info.saveScore);
+        info.money -= info.saveMoney;
+        info.saveScore = 0;
+        info.saveMoney = 0;
+        info.time = 100;
+        let info_build = 0;
+        builds.forEach((build, index) => {
+            build.human_list.splice(0, build.human_list.length);
+            if (build.title === 'birth') {
+                for (let i = 0; i < info.builds[info_build].end.length; i++) {
+                    build.human_list.push(new Human(build.x, build.y, info.builds[info_build].end[i]));
+                }
+                info_build++
+            }
+        });
+        let data = JSON.stringify({
+            info,
+            start: game.start_info,
+            builds,
+            road: game.road,
+            grid: game.grid,
+        })
+
+        const href = "data:text/json;charset=utf-8," + encodeURIComponent(data);
+        $(`<a href="${href}" download='export.json'></a>`)[0].click();
+    })
 })

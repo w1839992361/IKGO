@@ -7,6 +7,7 @@ import Canvas from './canvas.js';
     const loop = () => {
         time += performance.now() - last_time;
         if (time > 1000) {
+            game?.secondLoop();
             time = 0;
         }
         view?.render();
@@ -19,9 +20,8 @@ import Canvas from './canvas.js';
 })();
 
 game = new Game();
-view = new Canvas('#canvas',game.width,game.height);
+view = new Canvas('#canvas', game.width, game.height);
 imageReady().then(res => {
     pageChange('.frame', '.start_frame');
 })
-
 

@@ -18,13 +18,29 @@ function moneyIsEnough(reduce) {
     return (game.info.money + reduce) >= 0;
 }
 
-function moneyReduce(reduce) {
+function moneyReduce(reduce, x = mouseMove.x, y = mouseMove.y) {
+    if (reduce > 0) {
+        game.info.saveMoney += reduce;
+    }
     game.info.money += reduce;
-    console.log(reduce);
+    let div = document.createElement('div');
+    div.classList.add('reduceMoney');
+    div.style.cssText = `top:${y*60}px;left:${x*60}px;`;
+    div.addEventListener('animationend', (e) => {
+        e.target.remove();
+    });
+    div.innerHTML = `${Math.sign(reduce) === -1 ? '-' : '+'}$${Math.abs(reduce)}`;
+    document.body.append(div)
 }
 
 function tips(msg) {
-    console.error(msg)
+    let div = document.createElement('div');
+    div.classList.add('message');
+    div.addEventListener('animationend', (e) => {
+        e.target.remove();
+    });
+    div.innerHTML = msg;
+    document.body.append(div);
 }
 
 function getDirs(x, y) {
@@ -44,8 +60,41 @@ function eq(p1, p2) {
     return p1.x === p2.x && p1.y === p2.y;
 }
 
+function getNode(v) {
+    if (v.p && v.p.p) {
+        return getNode(v.p);
+    }
+    return v;
+}
+
+function found(p, arr) {
+    return arr.findIndex(i => i.x === p.x && i.y === p.y) !== -1;
+}
+
 function bfs(start, end) {
     let q = [start];
     let visited = [start];
+
+    while (q.length) {
+        let v = q.shift();
+
+        if (eq(v, end)) {
+            let result = getNode(v);
+            result.len = v.len;
+            return result;
+        }
+
+        let dirs = getDirs(v.x, v.y);
+        dirs.forEach(dir => {
+            if (found(dir, visited)) return;
+
+            if (found(dir, game.road) || (eq(dir, end) && dir.x === v.x && dir.y === v.y - 1)) {
+                dir.len = (v.len || 1) + 1;
+                dir.p = v;
+                visited.push(dir);
+                q.push(dir);
+            }
+        })
+    }
 }
 

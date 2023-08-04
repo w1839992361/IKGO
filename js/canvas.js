@@ -9,6 +9,7 @@ export default class Canvas {
     }
 
     drawCell() {
+        game.grid = [];
         let row = game.row;
         let col = game.col;
         for (let y = 0; y < row; y++) {

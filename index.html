@@ -11,7 +11,7 @@
     <script src="./js/utils.js"></script>
     <script src="./js/config.js"></script>
     <script src="./js/global.js"></script>
-    <script src="./js/listen.js"></script>
+    <script src="./js/listen.js" type="module"></script>
 
 </head>
 <body>
@@ -50,19 +50,94 @@
     </div>
     <div class="game_frame frame">
         <div class="top pr">
-
+            <div class="center">
+                <div class="info_item" data-name="Money">
+                    <span class="emoji">💰</span>
+                    <span class="money"></span>
+                </div>
+                <div class="info_item" data-name="Score">
+                    <span class="emoji">🏆</span>
+                    <span class="score"></span>
+                </div>
+                <div class="info_item" data-name="Time">
+                    <span class="emoji">⏳</span>
+                    <span class="time"></span>
+                </div>
+            </div>
+            <div>
+                <p class="nickName emoji" style="right: 50px" aria-label="NickName"></p>
+            </div>
         </div>
         <canvas id="canvas"></canvas>
         <div class="bottom pr">
             <button class="orange game_toggle pa trans">Launch</button>
+            <button class="orange back_home pa trans emoji">🏠</button>
+            <button class="orange setting pa trans emoji">⚙</button>
             <div class="tools pa trans">
                 <button class="tool active road" data-brush="road"><img src="./img/Asset%2012.png" alt=""></button>
                 <button class="tool navigator" data-brush="navigator"><img src="./img/navigator.png" alt=""></button>
-                <button class="tool rebirth" disabled data-brush="rebirth"><img src="./img/rebirth.png" alt=""></button>
+                <button class="tool rebirth" data-brush="rebirth"><img src="./img/rebirth.png" alt=""></button>
                 <button class="tool remove" data-brush="remove"><img src="./img/remove.png" alt=""></button>
             </div>
-            <button class="orange log pa trans">log</button>
+<!--            <button class="orange log pa trans">log</button>-->
         </div>
+
+        <div class="model mask full_page model_close setting_model trans center">
+            <div class="model_dialog center col pr">
+                <div class="title">Setting</div>
+                <button class="btn orange btn_close model_close pa">&times;</button>
+                <div class="center setting_body">
+                    <button class="primary saveGame">Save Game</button>
+                    <button class="orange load_btn">Load Game</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="model mask full_page  win_model trans center">
+            <div class="model_dialog center col pr">
+                <div class="title">You Win</div>
+                <div class="center flex_warp">
+                    <div class="over_emoji emoji center">
+                        😀
+                    </div>
+                    <div class="center game_info">
+                        <div class="center">
+                            <span class="emoji">🏆</span>
+                            <span class="over_score">0</span>
+                        </div>
+                        <div class="center">
+                            <span class="emoji">⏳</span>
+                            <span class="over_time">0</span>
+                        </div>
+                    </div>
+                </div>
+                <button class="primary end_btn">End Game</button>
+                <button class="orange next_level">Next Level</button>
+            </div>
+        </div>
+
+        <div class="model mask full_page  lose_model trans center">
+            <div class="model_dialog center col pr">
+                <div class="title">You Lose</div>
+                <div class="center flex_warp">
+                    <div class="over_emoji emoji center">
+                        🙁
+                    </div>
+                    <div class="center game_info">
+                        <div class="center">
+                            <span class="emoji">🏆</span>
+                            <span class="over_score">0</span>
+                        </div>
+                        <div class="center">
+                            <span class="emoji">⏳</span>
+                            <span class="over_time">0</span>
+                        </div>
+                    </div>
+                </div>
+                <button class="orange play_again">Play Again</button>
+            </div>
+        </div>
+
     </div>
     <div class="rank_frame frame">
 
