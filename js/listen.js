@@ -358,13 +358,13 @@ $(() => {
         pageChange(e.target.dataset.page, '.rank_frame');
     })
 
-    for (let i = 0; i < 2; i++) {
-        let audio = new Audio();
-        audio.src = `./audio/${i + 1}.mp3`;
-        audio.addEventListener('loadeddata', () => {
-            audios.push(audio);
-        })
-    }
+    // for (let i = 0; i < 2; i++) {
+    //     let audio = new Audio();
+    //     audio.src = `./audio/${i + 1}.mp3`;
+    //     audio.addEventListener('loadeddata', () => {
+    //         audios.push(audio);
+    //     })
+    // }
 
     document.addEventListener('keyup', (e) => {
         let key = e.code.toLowerCase();
