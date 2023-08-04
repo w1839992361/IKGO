@@ -87,7 +87,7 @@ html, body {
     }
 }
 
-.reduceMoney{
+.reduceMoney {
     color: gold;
     font-weight: bold;
     position: absolute;
@@ -112,7 +112,7 @@ button {
     width: 350px;
     height: 70px;
     border-radius: 25px;
-    border: 5px solid #FFF;
+    box-shadow: 0 0 0 5px #FFF;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -121,6 +121,7 @@ button {
     cursor: pointer;
     color: #FFF;
     margin: 15px;
+    border: none;
 }
 
 button:active {
@@ -133,10 +134,12 @@ button:hover {
 
 button.primary {
     background: linear-gradient(dodgerblue, rgb(62, 53, 225));
+    border-bottom: 4px solid #000bdc;
 }
 
 button.orange {
     background: linear-gradient(orange, #e3974b);
+    border-bottom: 4px solid #dc7900;
 }
 
 button.level {
@@ -391,9 +394,10 @@ game
 .tools .tool {
     width: 80px;
     height: 80px;
-    border: #8dffc0 3px solid;
+    border: #8dffc0 5px solid;
     border-radius: 5px;
     background-color: #4ca55d;
+    box-shadow: none;
 }
 
 .tool.active {
@@ -429,4 +433,112 @@ game
 
 .setting_body button {
     width: 200px;
+}
+
+
+/*
+rank_frame
+*/
+.rank_frame .box {
+    width: 60%;
+    height: 650px;
+    background-color: #ffefe0;
+    border: 5px solid orange;
+    border-radius: 20px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    user-select: none;
+}
+
+.rank_frame .back {
+    width: 200px;
+}
+
+.rank_frame .header {
+    width: 100%;
+    height: 100px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-right: 50px;
+}
+
+.rank_frame .header p {
+    font-size: 30px;
+    font-weight: bold;
+}
+
+.rank_frame .body {
+    width: 95%;
+    height: 460px;
+    margin: 15px 2%;
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    background-color: #e5d7c9;
+    overflow: hidden;
+    padding: 20px;
+    border-radius: 9px;
+}
+
+.table_header {
+    width: 100%;
+    height: 60px;
+    display: flex;
+    align-items: center;
+}
+
+.table_header div {
+    width: 25%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #898179;
+    color: #FFF;
+}
+
+.table_header div:first-child {
+    border-top-left-radius: 9px;
+    border-bottom-left-radius: 9px;
+}
+
+
+.table_header div:last-child {
+    border-top-right-radius: 9px;
+    border-bottom-right-radius: 9px;
+}
+
+.table_content {
+    width: 100%;
+    height: calc(100% - 60px);
+    overflow-y: auto;
+}
+
+.table_content::-webkit-scrollbar{
+    width: 10px;
+}
+
+.table_content::-webkit-scrollbar-thumb{
+  border-radius: 9px;
+    background-color: rgba(0,0,0,.2);
+}
+
+.content_item{
+    width: 98%;
+    height: 60px;
+    background-color: #fff6ed;
+    margin: 15px auto;
+    display: flex;
+    justify-content: space-between;
+}
+
+.content_item div{
+    width: 22%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
 }

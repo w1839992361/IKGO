@@ -201,7 +201,7 @@ export default class Game {
             if (b.title === 'birth') {
                 view.draw('house_2', x * this.size, y * this.size);
                 if (this.mode === 'Launch' && this.road.find(r => r.x === b.x && r.y === b.y + 1)) { //  && this.rebirthList.length === 0
-                    if (!b.human_list[0].is_end) {
+                    if (b.human_list.length > 0 && !b.human_list[0].is_end) {
                         b.human_list[0].is_move = true;
                         b.human_list[0].move();
                     }

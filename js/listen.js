@@ -13,8 +13,6 @@ $(() => {
     $('.start_btn').click(function () {
         $('.name_model').addClass('active');
     })
-    $('.nameIpt').val("1");
-
     $('.nameForm').submit(function (e) {
         e.preventDefault();
         let val = $('.nameIpt').val();
@@ -41,13 +39,26 @@ $(() => {
                 data = null;
             }
             if (data) {
+                let info_build = 0;
                 console.log(data)
                 game = new Game();
-                game.builds = data.builds;
+                let builds = data.builds;
+                builds.forEach((build, index) => {
+                    build.human_list.splice(0, build.human_list.length);
+                    if (build.title === 'birth') {
+                        for (let i = 0; i < data.info.builds[info_build].end.length; i++) {
+                            build.human_list.push(new Human(build.x, build.y, data.info.builds[info_build].end[i]));
+                        }
+                        info_build++
+                    }
+                });
+                game.builds = builds;
                 game.grid = data.grid;
                 game.info = data.info;
                 game.start = data.start;
                 game.road = data.road;
+                game.level = data.level;
+                game.level_info = levels[data.level-1];
                 closeModel();
                 pageChange('.frame', '.game_frame');
 
@@ -57,8 +68,8 @@ $(() => {
         fr.readAsText(e.target.files[0]);
     })
 
-    $('.back').click(function () {
-        pageChange('.select_frame', '.start_frame');
+    $('.back').click(function (e) {
+        pageChange(e.target.dataset.page, '.start_frame');
     })
 
     $('.level').mousemove(function () {
@@ -247,7 +258,7 @@ $(() => {
     })
 
     $('.next_level').click(function () {
-        let level = game.level + 1;
+        let level = game.level_info.start + 1;
         let now_money = game.info.money;
         let now_score = game.info.score;
         Object.assign(game.info, {
@@ -299,6 +310,7 @@ $(() => {
             info,
             start: game.start_info,
             builds,
+            level: game.level,
             road: game.road,
             grid: game.grid,
         })
@@ -306,4 +318,41 @@ $(() => {
         const href = "data:text/json;charset=utf-8," + encodeURIComponent(data);
         $(`<a href="${href}" download='export.json'></a>`)[0].click();
     })
+
+    $('.rank_btn').click(function (e) {
+        let data = (localStorage.ws_02 && JSON.parse(localStorage.ws_02)) || [];
+        console.log(e.target.dataset.page)
+        if (e.target.dataset.page === '.game_frame') {
+            data.push({name: game.info.nickName, score: game.info.score, time: game.info.time});
+            localStorage.setItem('ws_02', JSON.stringify(data));
+        }
+        let str = '';
+        data.sort((a, b) => {
+            if (a.score === b.score) {
+                return b.time - a.time;
+            }
+            return b.score - a.score;
+        })
+        data.forEach((item, index) => {
+            str += `
+               <div class="content_item">
+                        <div>
+                        ${index + 1}
+                        </div>
+                        <div>
+                       👨 ${item.name}
+                        </div>
+                        <div>
+                        🏆 ${item.score}
+                        </div>
+                        <div>
+                        ⏳ ${item.time}
+                        </div>
+                    </div>
+            `;
+        })
+        $('.table_content').html(str);
+        pageChange(e.target.dataset.page, '.rank_frame');
+    })
+
 })

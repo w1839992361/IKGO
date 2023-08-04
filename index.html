@@ -32,13 +32,13 @@
         <div class="start_btns">
             <button class="primary start_btn">New Game</button>
             <button class="orange load_btn">Load Game</button>
-            <button class="orange">Ranking</button>
+            <button class="orange rank_btn" data-page=".start_frame">Ranking</button>
         </div>
     </div>
     <div class="select_frame frame">
         <div class="box pa">
             <div class="header">
-                <button class="orange back">Main Page</button>
+                <button class="orange back" data-page=".select_frame">Main Page</button>
                 <p class="nickName" aria-label="NickName"></p>
             </div>
             <div class="body">
@@ -79,7 +79,7 @@
                 <button class="tool rebirth" data-brush="rebirth"><img src="./img/rebirth.png" alt=""></button>
                 <button class="tool remove" data-brush="remove"><img src="./img/remove.png" alt=""></button>
             </div>
-<!--            <button class="orange log pa trans">log</button>-->
+                        <button class="orange log pa trans">log</button>
         </div>
 
         <div class="model mask full_page model_close setting_model trans center">
@@ -111,7 +111,7 @@
                         </div>
                     </div>
                 </div>
-                <button class="primary end_btn">End Game</button>
+                <button class="primary rank_btn" data-page=".game_frame">End Game</button>
                 <button class="orange next_level">Next Level</button>
             </div>
         </div>
@@ -140,7 +140,31 @@
 
     </div>
     <div class="rank_frame frame">
+        <div class="box pa">
+            <div class="header">
+                <button class="orange back" data-page=".rank_frame">Main Page</button>
+                <p>Ranking</p>
+            </div>
+            <div class="body">
+                <div class="table_header">
+                    <div>
+                        Rank
+                    </div>
+                    <div>
+                        NickName
+                    </div>
+                    <div>
+                        Score
+                    </div>
+                    <div>
+                        Time
+                    </div>
+                </div>
+                <div class="table_content">
 
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 <script src="./js/main.js" type="module"></script>

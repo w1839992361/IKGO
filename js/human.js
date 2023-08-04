@@ -34,7 +34,7 @@ export default class Human {
                     game.builds[index].human_list.splice(0, 1);
                 }
                 game.builds[build_index].human_list.push(new Human(this.x, this.y, this.end));
-                moneyReduce(100)
+                moneyReduce(100,this.x,this.y)
                 game.info.score += 100;
                 game.info.saveScore += 100;
             } else {
