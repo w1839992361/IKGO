@@ -7,7 +7,7 @@ function pageChange(s1, s2, callback) {
 }
 
 function closeModel() {
-    $('.model').removeClass('active');
+    $(".model").removeClass("active");
 }
 
 function getPosition(e) {
@@ -25,7 +25,7 @@ function moneyReduce(reduce, x = mouseMove.x, y = mouseMove.y) {
     game.info.money += reduce;
     let div = document.createElement('div');
     div.classList.add('reduceMoney');
-    div.style.cssText = `top:${y*60}px;left:${x*60}px;`;
+    div.style.cssText = `top:${y * 60}px;left:${x * 60}px;`;
     div.addEventListener('animationend', (e) => {
         e.target.remove();
     });

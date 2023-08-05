@@ -89,8 +89,8 @@ export default class Game {
     secondLoop() {
         if (this.info.time > 0 && this.mode === 'Launch' && !this.is_over) {
             this.info.time--;
-            if (audios.length){
-                audios[Math.floor(Math.random()*audios.length)].play();
+            if (audios.length) {
+                audios[Math.floor(Math.random() * audios.length)].play();
                 moneyReduce(1000);
             }
         }
@@ -114,11 +114,16 @@ export default class Game {
                 $('.over_time').html(this.info.time);
                 $('.lose_model').addClass('active');
             }
+        } else if (this.info.time <= 0) {
+            this.is_over = true;
+            $('.over_score').html(this.info.score);
+            $('.over_time').html(this.info.time);
+            $('.lose_model').addClass('active');
         }
     }
 
     loop() {
-        if (this.mode === 'Launch') this.update();
+        if (this.mode === 'Launch' && !this.is_over) this.update();
         if (this.is_over) return;
         this.vr_road.filter(i => {
             let index = i.y * this.col + i.x;

@@ -79,7 +79,9 @@ $(() => {
     })
 
     $('.level').click(function () {
+        game = new Game();
         game.init(+$(this).attr('data-level'));
+        view.drawCell();
         pageChange('.select_frame', '.game_frame');
     })
 
@@ -324,16 +326,17 @@ $(() => {
 
     $('.rank_btn').click(function (e) {
         let data = (localStorage.ws_02 && JSON.parse(localStorage.ws_02)) || [];
-        console.log(e.target.dataset.page)
         if (e.target.dataset.page === '.game_frame') {
             data.push({name: game.info.nickName, score: game.info.score, time: game.info.time});
             localStorage.setItem('ws_02', JSON.stringify(data));
         }
-        let str = '';
+        closeModel();
+            let str = '';
         data.sort((a, b) => {
             if (a.score === b.score) {
                 return b.time - a.time;
             }
+
             return b.score - a.score;
         })
         data.forEach((item, index) => {
