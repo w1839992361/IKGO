@@ -80,12 +80,21 @@ export default class Human {
             let road = game.grid.find(i => i.x === this.x && i.y === this.y && i.is_navigator);
 
             if (road) {
-                let result = bfs(road, game.builds.find(i => i.title === this.end));
-                if (result) {
+                let end_list = game.builds.filter(i => i.title === this.end);
+                let next_list = end_list.map(end => bfs(road, end))
+                if (next_list.length) {
+                    next_list.sort((a, b) => a.len - b.len);
+                    let result = next_list.shift();
                     this.prev = result.p;
                     this.next.x = result.x;
                     this.next.y = result.y;
                 }
+                // let result = bfs(road, game.builds.find(i => i.title === this.end));
+                // if (result) {
+                //     this.prev = result.p;
+                //     this.next.x = result.x;
+                //     this.next.y = result.y;
+                // }
             }
 
             if (this.next) {
