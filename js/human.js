@@ -100,9 +100,10 @@ export default class Human {
             if (this.next) {
                 let diff_x = (this.next.x - this.moveing.x) / 6;
                 let diff_y = (this.next.y - this.moveing.y) / 6;
-                this.moveing.x += diff_x === 0 ? 0 : diff_x < 0 ? -0.05 : 0.05;
-                this.moveing.y += diff_y === 0 ? 0 : diff_y < 0 ? -0.05 : 0.05;
+                this.moveing.x += diff_x === 0 ? 0 : diff_x < 0 ? -0.03 : 0.03;
+                this.moveing.y += diff_y === 0 ? 0 : diff_y < 0 ? -0.03 : 0.03;
                 view.draw('human', this.moveing.x * 60, this.moveing.y * 60);
+                view.draw(this.end, this.moveing.x * 60+5, this.moveing.y * 60-25,50,50);
             }
 
             if (Math.abs(this.next.x - this.moveing.x) <= 0.05 && Math.abs(this.next.y - this.moveing.y) <= 0.05) {
