@@ -60,7 +60,7 @@ export default class Game {
         for (let i = 0; i < this.level_info.end.length + this.level_info.start; i++) {
             let x = randomHandle(this.col - 3, 3);
             let y = randomHandle(this.row - 3, 3);
-            if (!this.builds.find(b => b.x === x && b.y === y) && !this.builds.find(b => b.x === x && (b.y === y-- || b.y === y + 1))) {
+            if (!this.builds.find(b => b.x === x && b.y === y) && !this.builds.find(b => b.x === x && (b.y === y-1 || b.y === y + 1))) {
                 this.builds.push({
                     x,
                     y,
